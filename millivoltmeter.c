@@ -214,3 +214,16 @@ long EEPROMreadlong(long address) {
 
   return (four)+(three << 8) + (two << 16) + (one << 24);
 }
+
+//Number of decimal places subroutine
+int Dec_Places_Adj(void) {
+  da = da + 1;
+  if (d > 5) {
+    da = 0;
+    duV = 0;
+    dmV = 0;
+    dV = 0;
+    lcd.setCursor(6, 1);
+    lcd.print("     "); //8 spaces 
+  }
+}
