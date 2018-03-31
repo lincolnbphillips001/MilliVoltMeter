@@ -18,12 +18,16 @@
 
 #include <SPI.h>
 #include <LiquidCrystal.h>
+#include <EEPROM.h>
 
 LiquidCrystal lcd(8, 7, 6, 5, 4, 3);
 const int LTC_CS = 10
 const int CalButton = 2;
+const int DecButton = 9;
 long adcRead;
 int CalSetup = 0;
+int DecPlaces = 0;
+long cal;
 float cal = 0;
 float volt;
 float vRef = 4.096;
@@ -35,6 +39,10 @@ int d = 0;
 int dV = 6;
 int dmV = 2;
 int duV = 0;
+//decimal places adjustment
+int da = 0;
+//set EEPROM memory start address
+long address = 0;
 
 void setup(void) {
 
