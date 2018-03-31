@@ -124,30 +124,30 @@ void loop(void) {
 
 long Spi_Read(void) {
 
-	long result = 0;
+  long result = 0;
   long b;
   digitalWrite(LTC_CS, LOW);
-	delayMicroseconds(1);
+  delayMicroseconds(1);
 
-	if (!(PINB & (1 << 4))) {
+  if (!(PINB & (1 << 4))) {
 
-		b = SPI.transfer(0xFF);
-		b &= 0x0F;
-		result = b;
+    b = SPI.transfer(0xFF);
+    b &= 0x0F;
+    result = b;
     result <<= 8;
-		b = SPI.transfer(0xFF);
+    b = SPI.transfer(0xFF);
     result |= b;
     result = result << 8;
-		b = SPI.transfer(0xFF);
+    b = SPI.transfer(0xFF);
     result |= b;
     result = result << 8;
-		b = SPI.transfer(0xFF);
+    b = SPI.transfer(0xFF);
     result |= b;
 
     digitalWrite(LTC_CS, HIGH);
 
-		return(result);
-	}
+    return(result);
+  }
 }
 
 long Cal_Adjust(void) {
