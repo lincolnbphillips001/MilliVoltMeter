@@ -50,6 +50,15 @@ void setup(void) {
   lcd.print("   SCULLCOM");
   lcd.setCursor(0, 1);
   lcd.print("Hobby Electronics");
+  
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  cal = (EEPROMreadlong(address));
+  lcd.print("EEPROM Cal Level");
+  lcd.setCursor(0, 1);
+  lcd.print(cal);
+  
   delay(3000);
   lcd.clear();
   lcd.setCursor(0, 0);
@@ -65,44 +74,44 @@ void loop(void) {
 
   CalSetup = digitalRead(CalButton);
   if (CalSetup == HIGH) {
-		Cal_Adjust();
+    Cal_Adjust();
   } else {
-		lcd.setCursor(0, 1);
+    lcd.setCursor(0, 1);
 
-		int i;
+    int i;
     long sum = 0;
     for (i=0; i<(samples); i++) {
-			adcRead = Spi_Read();
-			delay(ct);
-			sum += adcRead;
-		}
+      adcRead = Spi_Read();
+      delay(ct);
+      sum += adcRead;
+    }
 
-		sum = sum / samples;
-		sum = sum >> 4;
+    sum = sum / samples;
+    sum = sum >> 4;
     sum = sum - (cal - trim);
     volt = sum;
-		volt = volt * 10;
-		volt = volt * v_ref / (16777216);
+    volt = volt * 10;
+    volt = volt * v_ref / (16777216);
 
-		if (volt < 0.001) {
-			volt = volt * 1000000;
-			v = "uV";
-			d = duV;
-		} else if {
-			volt = volt * 1000;
-			v = "mV";
-			d = dmV;
-		} else {
-			v = "V";
-			d = dV;
-		}
+    if (volt < 0.001) {
+      volt = volt * 1000000;
+      v = "uV";
+      d = duV;
+    } else if {
+      volt = volt * 1000;
+      v = "mV";
+      d = dmV;
+    } else {
+      v = "V";
+      d = dV;
+    }
 
-		lcd.setCursor(0, 1);
-		lcd.print(volt, d);
-		lcd.print(" ");
-		lcd.print(v);
-		lcd.print(" ");
-	}
+    lcd.setCursor(0, 1);
+    lcd.print(volt, d);
+    lcd.print(" ");
+    lcd.print(v);
+    lcd.print(" ");
+  }
 }
 
 long Spi_Read(void) {
