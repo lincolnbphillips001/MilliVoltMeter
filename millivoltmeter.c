@@ -38,27 +38,27 @@ int duV = 0;
 
 void setup(void) {
 
-	pinMode(LTC_CS, OUTPUT);
-	digitalWrite(LTC_CS, HIGH);
+  pinMode(LTC_CS, OUTPUT);
+  digitalWrite(LTC_CS, HIGH);
 
-	SPI.begin();
+  SPI.begin();
   SPI.setBitOrder(MSBFIRST);
-	SPI.setDataMode(SPI_MODE0);
-	SPI.setClockDivider(SPI_CLOCK_DIV16);
-	lcd.begin(16, 2);
-	lcd.setCursor(0, 0);
-	lcd.print("   SCULLCOM");
-	lcd.setCursor(0, 1);
+  SPI.setDataMode(SPI_MODE0);
+  SPI.setClockDivider(SPI_CLOCK_DIV16);
+  lcd.begin(16, 2);
+  lcd.setCursor(0, 0);
+  lcd.print("   SCULLCOM");
+  lcd.setCursor(0, 1);
   lcd.print("Hobby Electronics");
-	delay(3000);
-	lcd.clear();
-	lcd.setCursor(0, 0);
-	lcd.print("Millivolt Meter");
+  delay(3000);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("Millivolt Meter");
 
-	for (int i = 0; i < 5; i++) {
-		Spi_Read();
-		delay(ct);
-	}
+  for (int i = 0; i < 5; i++) {
+    Spi_Read();
+    delay(ct);
+  }
 }
 
 void loop(void) {
