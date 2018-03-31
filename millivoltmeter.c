@@ -82,8 +82,19 @@ void loop(void) {
 
   CalSetup = digitalRead(CalButton);
   if (CalSetup == HIGH) {
+    
     Cal_Adjust();
   } else {
+    
+    DecPlaces = digitalRead(DecButton);
+    if (DecPlaces == LOW) {
+    Dec_Places_Adj();
+    delay(500);
+    } else {
+      
+    lcd.setCursor(15, 1);
+    lcd.print(d);
+
     lcd.setCursor(0, 1);
 
     int i;
