@@ -124,6 +124,8 @@ void loop(void) {
       v = "V";
       d = dV;
     }
+	    
+    d = d + da;
 
     lcd.setCursor(0, 1);
     lcd.print(volt, d);
