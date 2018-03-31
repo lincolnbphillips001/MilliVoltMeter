@@ -134,34 +134,37 @@ long Spi_Read(void) {
 }
 
 long Cal_Adjust(void) {
-	lcd.clear();
-	lcd.setCursor(0, 0);
-  lcd.print("Calibration");
-	lcd.setCursor(0, 1);
-  lcd.print("Short input lead");
-	delay(2000);
-
-	int i;
-  long sum = 0;
-  for (i=0; i < (samples); i++) {
-		adcRead = Spi_Read();
-		delay(ct);
-		sum += adcRead;
-  }
-
-	sum = sum / samples;
-	sum = sum >> 4;
-	cal = sum;
 
   lcd.clear();
-	lcd.setCursor(0, 0);
+  lcd.setCursor(0, 0);
+  lcd.print("Calibration");
+  lcd.setCursor(0, 1);
+  lcd.print("Short input lead");
+  delay(2000);
+
+  int i;
+  long sum = 0;
+  for (i=0; i < (samples); i++) {
+    adcRead = Spi_Read();
+    delay(ct);
+    sum += adcRead;
+  }
+
+  sum = sum / samples;
+  sum = sum >> 4;
+  cal = sum;
+
+  lcd.clear();
+  lcd.setCursor(0, 0);
   lcd.print("Adjust Factor");
-	lcd.setCursor(0, 1);
+  lcd.setCursor(0, 1);
   lcd.print(cal);
-	delay(3000);
+  delay(3000);
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Millivolt Meter");
+  
+  EEPROMwritelong(address, cal);
 }
 
 //Routine to write a 4 byte (32 bit) long
