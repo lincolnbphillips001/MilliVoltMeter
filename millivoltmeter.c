@@ -163,3 +163,34 @@ long Cal_Adjust(void) {
   lcd.setCursor(0, 0);
   lcd.print("Millivolt Meter");
 }
+
+//Routine to write a 4 byte (32 bit) long
+//to EEPROM at specified addresses
+void EEPROMwritelong(int address, long value) {
+
+  //four = least significant byte
+  byte four = (value & 0xFF);
+  byte three = ((value >> 8) & 0xFF);
+  byte two = ((value >> 16) & 0xFF);
+  //one = most significant byte
+  byte one = ((value >> 24) & 0xFF);
+
+  //write the four bytes into EEPROM
+  EEPROM.write(address, four);
+  EEPROM.write(address+1, three);
+  EEPROM.write(address+2, two);
+  EEPROM.write(address+3, one);
+}
+
+//Routine to read back 4 bytes
+//and return with (32 bit) long as value
+long EEPROMreadlong(long address) {
+
+	//read the 4 bytes from EEPROM
+  long four = EEPROM.read(address);
+  long three = EEPROM.read(address+1);
+  long two = EEPROM.read(address+2);
+  long one = EEPROM.read(address+3);
+
+  return (four)+(three << 8) + (two << 16) + (one << 24);
+}
