@@ -36,7 +36,7 @@ int dV = 6;
 int dmV = 2;
 int duV = 0;
 
-void setup() {
+void setup(void) {
 
 	pinMode(LTC_CS, OUTPUT);
 	digitalWrite(LTC_CS, HIGH);
@@ -61,7 +61,7 @@ void setup() {
 	}
 }
 
-void loop() {
+void loop(void) {
 
   CalSetup = digitalRead(CalButton);
   if (CalSetup == HIGH) {
@@ -160,6 +160,6 @@ long Cal_Adjust(void) {
   lcd.print(cal);
 	delay(3000);
   lcd.clear();
-	lcd.setCursor(0, 0);
+  lcd.setCursor(0, 0);
   lcd.print("Millivolt Meter");
 }
